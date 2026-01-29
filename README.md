@@ -1,2 +1,3 @@
 # CLASSVIBE-AI-POWERED-CLASSROOM-ENGAGEMENT-TRACKER-
+Built an AI-powered classroom engagement tracker using computer vision and deep learning to analyze emotion, gaze, and posture from real-time webcam feeds. Designed a CNN-based emotion classifier (FER-2013), gaze detection logic, and pose-based posture analysis, integrated into a Streamlit dashboard with real-time engagement scoring (0–6).
 Webcam-based face detection ✔ Emotion detection (FER-2013 CNN – pre-trained) ✔ Gaze detection (focused vs distracted – heuristic) ✔ Posture detection (upright vs slouched – pose estimation) ✔ Engagement score (0–6) ✔ Live Streamlit dashboard
