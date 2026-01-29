@@ -1,0 +1,16 @@
+import mediapipe as mp
+
+mp_pose = mp.solutions.pose
+pose = mp_pose.Pose()
+
+def detect_posture(frame):
+    results = pose.process(frame)
+    if not results.pose_landmarks:
+        return "Unknown"
+
+    shoulder = results.pose_landmarks.landmark[mp_pose.PoseLandmark.LEFT_SHOULDER]
+    hip = results.pose_landmarks.landmark[mp_pose.PoseLandmark.LEFT_HIP]
+
+    if shoulder.y < hip.y - 0.05:
+        return "Upright"
+    return "Slouched"
