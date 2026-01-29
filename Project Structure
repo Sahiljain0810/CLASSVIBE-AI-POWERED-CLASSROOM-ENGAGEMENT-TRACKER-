@@ -1,0 +1,9 @@
+classvibe/
+│
+├── app.py                     # Streamlit app
+├── emotion_model.h5           # Pretrained CNN
+├── emotion.py                 # Emotion detection
+├── gaze.py                    # Gaze detection
+├── posture.py                 # Posture detection
+├── engagement.py              # Scoring logic
+├── requirements.txt
