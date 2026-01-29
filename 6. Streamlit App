@@ -1,0 +1,45 @@
+import streamlit as st
+import cv2
+from emotion import detect_emotion
+from gaze import detect_gaze
+from posture import detect_posture
+from engagement import calculate_score
+
+st.title("🎓 CLASSVIBE – Classroom Engagement Tracker")
+
+run = st.checkbox("Start Camera")
+frame_window = st.image([])
+
+cap = cv2.VideoCapture(0)
+face_cascade = cv2.CascadeClassifier(
+    cv2.data.haarcascades + 'haarcascade_frontalface_default.xml'
+)
+
+while run:
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+
+    h, w, _ = frame.shape
+    frame_center_x = w // 2
+
+    for (x,y,wf,hf) in faces:
+        face = frame[y:y+hf, x:x+wf]
+
+        emotion = detect_emotion(face)
+        gaze = detect_gaze(wf, x + wf//2, frame_center_x)
+        posture = detect_posture(frame)
+
+        score = calculate_score(emotion, gaze, posture)
+
+        label = f"{emotion} | {gaze} | {posture} | Score: {score}"
+        cv2.rectangle(frame,(x,y),(x+wf,y+hf),(0,255,0),2)
+        cv2.putText(frame,label,(x,y-10),
+                    cv2.FONT_HERSHEY_SIMPLEX,0.6,(0,255,0),2)
+
+    frame_window.image(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+
+cap.release()
