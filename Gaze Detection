@@ -1,0 +1,5 @@
+def detect_gaze(face_width, face_center_x, frame_center_x):
+    offset = abs(face_center_x - frame_center_x)
+    if offset < face_width * 0.15:
+        return "Focused"
+    return "Distracted"
