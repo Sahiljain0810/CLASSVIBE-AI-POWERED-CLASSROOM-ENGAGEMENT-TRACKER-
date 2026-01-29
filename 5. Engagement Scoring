@@ -1,0 +1,11 @@
+def calculate_score(emotion, gaze, posture):
+    score = 0
+
+    if emotion in ["Happy", "Neutral"]:
+        score += 2
+    if gaze == "Focused":
+        score += 2
+    if posture == "Upright":
+        score += 2
+
+    return score  # 0–6
